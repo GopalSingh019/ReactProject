@@ -10,19 +10,19 @@ function Banner(props) {
   const [movie, setMovie] = useState(0);
 
   useEffect(() => {
-    var i = 0;
-    var intervalR = setInterval(() => {
-      if (i > 19)
-        i = 0;
+    var intervalR = setTimeout(() => {    
       if (Search)
-        setMovie(i++);
+        setMovie((i)=>{if (i > 18)
+          i = 0;
+          else i+=1;
+          return i;});
     }, 3000);
-    return () => clearInterval(intervalR);
-  }, []);
+    return () => clearTimeout(intervalR);
+  });
 
   const Search = useSelector(state => state.Recommended.results);
   if (Search) {
-    console.log(movie);
+    // console.log(movie);
     var Images = 'http://image.tmdb.org/t/p/original/' + Search[movie].poster_path;
     var Title = Search[movie].title;
   }
